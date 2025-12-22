@@ -21,3 +21,7 @@ expertMode = true
 
 [userenv.shared]
 NVIDIA_API_KEY = "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"
+
+[[ports]]
+localPort = 8080
+externalPort = 8080
