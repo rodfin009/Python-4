@@ -7,47 +7,47 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            /* الألوان الأساسية - الوضع الليلي (الأساسي) */
-            --bg-primary: #0a0a0f;
-            --bg-secondary: #121218;
-            --bg-card: rgba(18, 20, 30, 0.9);
-            --text-primary: #f0f0ff;
-            --text-secondary: #b8b8d8;
-            --accent-primary: #8a2be2;
-            --accent-secondary: #6a11cb;
-            --accent-glow: #9d4edd;
-            --border-color: rgba(138, 43, 226, 0.2);
-            --shadow-color: rgba(0, 0, 0, 0.6);
-            --gradient-start: #6a11cb;
-            --gradient-end: #2575fc;
-            --gold-accent: #ffd700;
-            --success-color: #00ff88;
-            --stat-bg: rgba(20, 22, 35, 0.9);
-            --logo-bg-start: #6a11cb;
-            --logo-bg-end: #2575fc;
-            --mode-label: 'الوضع الليلي';
+            /* الألوان الأساسية - الوضع الليلي (الأكثر غموقاً) */
+            --bg-primary: #050508;
+            --bg-secondary: #0a0a10;
+            --bg-card: rgba(10, 12, 18, 0.95);
+            --text-primary: #e8e8ff;
+            --text-secondary: #a0a0c8;
+            --accent-primary: #7a1be0;
+            --accent-secondary: #5a0cb0;
+            --accent-glow: #8d2de8;
+            --border-color: rgba(122, 27, 224, 0.25);
+            --shadow-color: rgba(0, 0, 0, 0.8);
+            --gradient-start: #5a0cb0;
+            --gradient-end: #1a5ffc;
+            --gold-accent: #e6c300;
+            --success-color: #00cc77;
+            --stat-bg: rgba(12, 14, 22, 0.95);
+            --logo-bg-start: #5a0cb0;
+            --logo-bg-end: #1a5ffc;
+            --mode-label: 'الوضع الليلي المظلم';
         }
 
         .light-mode {
-            /* الألوان للوضع النهاري */
-            --bg-primary: #f5f7ff;
-            --bg-secondary: #e8eaff;
-            --bg-card: rgba(255, 255, 255, 0.95);
-            --text-primary: #121230;
-            --text-secondary: #444466;
-            --accent-primary: #7b1fa2;
-            --accent-secondary: #4a148c;
-            --accent-glow: #9c27b0;
-            --border-color: rgba(123, 31, 162, 0.15);
-            --shadow-color: rgba(123, 31, 162, 0.1);
-            --gradient-start: #7b1fa2;
-            --gradient-end: #2979ff;
-            --gold-accent: #ff9800;
-            --success-color: #009688;
-            --stat-bg: rgba(255, 255, 255, 0.9);
-            --logo-bg-start: #7b1fa2;
-            --logo-bg-end: #2979ff;
-            --mode-label: 'الوضع النهاري';
+            /* الألوان للوضع النهاري المظلم */
+            --bg-primary: #0d0d15;
+            --bg-secondary: #151522;
+            --bg-card: rgba(20, 22, 35, 0.95);
+            --text-primary: #e0e0ff;
+            --text-secondary: #9090b0;
+            --accent-primary: #6a1b92;
+            --accent-secondary: #4a107c;
+            --accent-glow: #7c27a0;
+            --border-color: rgba(106, 27, 146, 0.2);
+            --shadow-color: rgba(0, 0, 0, 0.7);
+            --gradient-start: #6a1b92;
+            --gradient-end: #1a5ffc;
+            --gold-accent: #d4b300;
+            --success-color: #008866;
+            --stat-bg: rgba(25, 27, 40, 0.95);
+            --logo-bg-start: #6a1b92;
+            --logo-bg-end: #1a5ffc;
+            --mode-label: 'الوضع النهاري المظلم';
         }
 
         * {
@@ -160,7 +160,7 @@
             border: 1px solid var(--border-color);
             box-shadow: 
                 0 10px 30px var(--shadow-color),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
         }
         
         .logo {
@@ -175,9 +175,9 @@
             font-size: 42px;
             color: white;
             box-shadow: 
-                0 8px 25px rgba(106, 17, 203, 0.4),
-                0 0 0 1px rgba(255, 255, 255, 0.1),
-                inset 0 2px 8px rgba(255, 255, 255, 0.3);
+                0 8px 25px rgba(90, 12, 176, 0.5),
+                0 0 0 1px rgba(255, 255, 255, 0.05),
+                inset 0 2px 8px rgba(255, 255, 255, 0.2);
             position: relative;
             overflow: hidden;
         }
@@ -189,7 +189,7 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
             transform: rotate(45deg);
             animation: shine 3s infinite linear;
         }
@@ -206,7 +206,7 @@
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            text-shadow: 0 2px 10px rgba(138, 43, 226, 0.3);
+            text-shadow: 0 2px 10px rgba(122, 27, 224, 0.4);
             font-weight: 800;
             letter-spacing: -0.5px;
         }
@@ -247,7 +247,7 @@
             overflow: hidden;
             box-shadow: 
                 0 8px 25px var(--shadow-color),
-                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+                inset 0 1px 0 rgba(255, 255, 255, 0.03);
         }
         
         .card::before {
@@ -263,9 +263,9 @@
         .card:hover {
             transform: translateY(-12px);
             box-shadow: 
-                0 20px 40px rgba(138, 43, 226, 0.25),
+                0 20px 40px rgba(122, 27, 224, 0.3),
                 0 0 0 1px var(--border-color),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
         }
         
         .card h2 {
@@ -280,7 +280,7 @@
         
         .card h2 i {
             color: var(--gold-accent);
-            background: rgba(255, 215, 0, 0.1);
+            background: rgba(230, 195, 0, 0.1);
             width: 40px;
             height: 40px;
             display: flex;
@@ -316,7 +316,7 @@
         }
         
         .highlight {
-            background: linear-gradient(90deg, rgba(138, 43, 226, 0.15), rgba(106, 17, 203, 0.15));
+            background: linear-gradient(90deg, rgba(122, 27, 224, 0.2), rgba(90, 12, 176, 0.2));
             padding: 2px 8px;
             border-radius: 4px;
             color: var(--accent-primary);
@@ -324,7 +324,7 @@
         }
         
         .experience {
-            background: linear-gradient(135deg, var(--bg-card), rgba(30, 32, 45, 0.9));
+            background: linear-gradient(135deg, var(--bg-card), rgba(15, 17, 25, 0.95));
             border-right: 5px solid var(--accent-primary);
             padding: 30px;
             margin-top: 30px;
@@ -333,7 +333,7 @@
             overflow: hidden;
             box-shadow: 
                 0 10px 30px var(--shadow-color),
-                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+                inset 0 1px 0 rgba(255, 255, 255, 0.03);
         }
         
         .experience::before {
@@ -343,7 +343,7 @@
             left: 0;
             width: 100px;
             height: 100px;
-            background: radial-gradient(circle, rgba(138, 43, 226, 0.15) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(122, 27, 224, 0.2) 0%, transparent 70%);
         }
         
         .experience h3 {
@@ -372,15 +372,15 @@
             overflow: hidden;
             box-shadow: 
                 0 8px 20px var(--shadow-color),
-                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+                inset 0 1px 0 rgba(255, 255, 255, 0.03);
         }
         
         .stat-box:hover {
             transform: translateY(-8px);
             border-color: var(--accent-primary);
             box-shadow: 
-                0 15px 30px rgba(138, 43, 226, 0.2),
-                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+                0 15px 30px rgba(122, 27, 224, 0.25),
+                inset 0 1px 0 rgba(255, 255, 255, 0.03);
         }
         
         .stat-box::before {
@@ -445,10 +445,10 @@
         
         .contact a:hover {
             color: var(--accent-primary);
-            background: rgba(138, 43, 226, 0.1);
+            background: rgba(122, 27, 224, 0.15);
             border-color: var(--accent-primary);
             transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(138, 43, 226, 0.25);
+            box-shadow: 0 10px 25px rgba(122, 27, 224, 0.3);
         }
         
         .contact a i {
@@ -458,7 +458,7 @@
         
         /* تأثيرات إضافية */
         .glow-text {
-            text-shadow: 0 0 20px rgba(138, 43, 226, 0.5);
+            text-shadow: 0 0 20px rgba(122, 27, 224, 0.6);
         }
         
         .pulse {
@@ -466,21 +466,21 @@
         }
         
         @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(138, 43, 226, 0.5); }
-            70% { box-shadow: 0 0 0 15px rgba(138, 43, 226, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(138, 43, 226, 0); }
+            0% { box-shadow: 0 0 0 0 rgba(122, 27, 224, 0.6); }
+            70% { box-shadow: 0 0 0 15px rgba(122, 27, 224, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(122, 27, 224, 0); }
         }
         
-        /* تأثيرات للوضع النهاري */
+        /* تأثيرات للوضع النهاري المظلم */
         .light-mode .card:hover {
             box-shadow: 
-                0 20px 40px rgba(123, 31, 162, 0.2),
-                0 0 0 1px rgba(123, 31, 162, 0.1),
-                inset 0 1px 0 rgba(255, 255, 255, 0.8);
+                0 20px 40px rgba(106, 27, 146, 0.25),
+                0 0 0 1px rgba(106, 27, 146, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
         }
         
         .light-mode .contact a:hover {
-            box-shadow: 0 10px 25px rgba(123, 31, 162, 0.2);
+            box-shadow: 0 10px 25px rgba(106, 27, 146, 0.25);
         }
         
         @media (max-width: 768px) {
@@ -529,7 +529,7 @@
     <!-- زر تبديل الوضع -->
     <div class="mode-toggle" id="modeToggle">
         <div class="toggle-switch"></div>
-        <div class="mode-label" id="modeLabel">الوضع الليلي</div>
+        <div class="mode-label" id="modeLabel">الوضع الليلي المظلم</div>
     </div>
     
     <div class="container">
@@ -631,7 +631,7 @@
         const savedMode = localStorage.getItem('themeMode');
         if (savedMode === 'light') {
             body.classList.add('light-mode');
-            modeLabel.textContent = 'الوضع النهاري';
+            modeLabel.textContent = 'الوضع النهاري المظلم';
         }
         
         // تبديل الوضع عند النقر
@@ -639,10 +639,10 @@
             body.classList.toggle('light-mode');
             
             if (body.classList.contains('light-mode')) {
-                modeLabel.textContent = 'الوضع النهاري';
+                modeLabel.textContent = 'الوضع النهاري المظلم';
                 localStorage.setItem('themeMode', 'light');
             } else {
-                modeLabel.textContent = 'الوضع الليلي';
+                modeLabel.textContent = 'الوضع الليلي المظلم';
                 localStorage.setItem('themeMode', 'dark');
             }
             
