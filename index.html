@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>رياض - خبير التداول المالي</title>
+    <title>رياض - تطبيق التداول المالي</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            /* الألوان الأساسية - الوضع الليلي (الأكثر غموقاً) */
+            /* ألوان التطبيق */
             --bg-primary: #050508;
             --bg-secondary: #0a0a10;
             --bg-card: rgba(10, 12, 18, 0.95);
@@ -22,32 +22,9 @@
             --gradient-end: #1a5ffc;
             --gold-accent: #e6c300;
             --success-color: #00cc77;
-            --stat-bg: rgba(12, 14, 22, 0.95);
-            --logo-bg-start: #5a0cb0;
-            --logo-bg-end: #1a5ffc;
-            --mode-label: 'الوضع الليلي المظلم';
-        }
-
-        .light-mode {
-            /* الألوان للوضع النهاري المظلم */
-            --bg-primary: #0d0d15;
-            --bg-secondary: #151522;
-            --bg-card: rgba(20, 22, 35, 0.95);
-            --text-primary: #e0e0ff;
-            --text-secondary: #9090b0;
-            --accent-primary: #6a1b92;
-            --accent-secondary: #4a107c;
-            --accent-glow: #7c27a0;
-            --border-color: rgba(106, 27, 146, 0.2);
-            --shadow-color: rgba(0, 0, 0, 0.7);
-            --gradient-start: #6a1b92;
-            --gradient-end: #1a5ffc;
-            --gold-accent: #d4b300;
-            --success-color: #008866;
-            --stat-bg: rgba(25, 27, 40, 0.95);
-            --logo-bg-start: #6a1b92;
-            --logo-bg-end: #1a5ffc;
-            --mode-label: 'الوضع النهاري المظلم';
+            --nav-bg: rgba(5, 5, 8, 0.95);
+            --nav-border: rgba(122, 27, 224, 0.3);
+            --active-tab: rgba(122, 27, 224, 0.2);
         }
 
         * {
@@ -55,346 +32,316 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            transition: background-color 0.5s ease, color 0.3s ease, border-color 0.3s ease;
         }
         
         body {
             background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-primary) 100%);
             color: var(--text-primary);
             min-height: 100vh;
-            padding: 20px;
+            padding: 0;
+            overflow-x: hidden;
         }
         
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            position: relative;
-        }
-        
-        /* زر تبديل الوضع */
-        .mode-toggle {
+        /* شريط التنقل العلوي */
+        .app-header {
             position: fixed;
-            top: 25px;
-            left: 25px;
-            z-index: 1000;
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 50px;
-            padding: 12px 20px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            cursor: pointer;
-            box-shadow: 0 5px 15px var(--shadow-color);
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-        }
-        
-        .mode-toggle:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px var(--shadow-color);
-            border-color: var(--accent-primary);
-        }
-        
-        .toggle-switch {
-            width: 50px;
-            height: 26px;
-            background: linear-gradient(90deg, var(--accent-secondary), var(--accent-primary));
-            border-radius: 50px;
-            position: relative;
-            transition: all 0.3s ease;
-        }
-        
-        .toggle-switch::after {
-            content: '';
-            position: absolute;
-            top: 3px;
-            right: 3px;
-            width: 20px;
-            height: 20px;
-            background: white;
-            border-radius: 50%;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-        }
-        
-        .light-mode .toggle-switch::after {
-            right: calc(100% - 23px);
-        }
-        
-        .mode-label {
-            font-weight: 600;
-            font-size: 0.9rem;
-            color: var(--text-primary);
-            white-space: nowrap;
-        }
-        
-        .mode-toggle::before {
-            content: var(--mode-label);
-            position: absolute;
-            top: -30px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--accent-primary);
-            color: white;
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-size: 0.8rem;
-            opacity: 0;
-            transition: opacity 0.3s;
-            white-space: nowrap;
-        }
-        
-        .mode-toggle:hover::before {
-            opacity: 1;
-        }
-        
-        header {
-            text-align: center;
-            margin-bottom: 40px;
-            padding: 30px;
-            background: var(--bg-card);
-            border-radius: 20px;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: var(--nav-bg);
             backdrop-filter: blur(15px);
-            border: 1px solid var(--border-color);
-            box-shadow: 
-                0 10px 30px var(--shadow-color),
-                inset 0 1px 0 rgba(255, 255, 255, 0.05);
-        }
-        
-        .logo {
-            width: 110px;
-            height: 110px;
-            margin: 0 auto 25px;
-            background: linear-gradient(135deg, var(--logo-bg-start) 0%, var(--logo-bg-end) 100%);
-            border-radius: 50%;
+            border-bottom: 1px solid var(--nav-border);
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-size: 42px;
-            color: white;
-            box-shadow: 
-                0 8px 25px rgba(90, 12, 176, 0.5),
-                0 0 0 1px rgba(255, 255, 255, 0.05),
-                inset 0 2px 8px rgba(255, 255, 255, 0.2);
-            position: relative;
-            overflow: hidden;
+            justify-content: space-between;
+            padding: 0 20px;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
         }
         
-        .logo::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transform: rotate(45deg);
-            animation: shine 3s infinite linear;
-        }
-        
-        @keyframes shine {
-            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
-        }
-        
-        h1 {
-            font-size: 3rem;
-            margin-bottom: 15px;
+        .header-title {
+            font-size: 1.3rem;
+            font-weight: 700;
             background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            text-shadow: 0 2px 10px rgba(122, 27, 224, 0.4);
-            font-weight: 800;
-            letter-spacing: -0.5px;
         }
         
-        .title {
-            font-size: 1.5rem;
-            background: linear-gradient(90deg, var(--accent-glow), var(--gold-accent));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 20px;
-            font-weight: 600;
-        }
-        
-        .subtitle {
-            font-size: 1.15rem;
-            max-width: 800px;
-            margin: 0 auto;
-            line-height: 1.7;
-            color: var(--text-secondary);
-        }
-        
-        .content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-bottom: 40px;
-        }
-        
-        .card {
-            background: var(--bg-card);
-            border-radius: 18px;
-            padding: 30px;
-            backdrop-filter: blur(15px);
-            border: 1px solid var(--border-color);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            overflow: hidden;
-            box-shadow: 
-                0 8px 25px var(--shadow-color),
-                inset 0 1px 0 rgba(255, 255, 255, 0.03);
-        }
-        
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary), var(--gold-accent));
-        }
-        
-        .card:hover {
-            transform: translateY(-12px);
-            box-shadow: 
-                0 20px 40px rgba(122, 27, 224, 0.3),
-                0 0 0 1px var(--border-color),
-                inset 0 1px 0 rgba(255, 255, 255, 0.05);
-        }
-        
-        .card h2 {
-            color: var(--accent-primary);
-            margin-bottom: 20px;
-            font-size: 1.7rem;
+        .header-actions {
             display: flex;
-            align-items: center;
-            gap: 12px;
-            font-weight: 700;
+            gap: 15px;
         }
         
-        .card h2 i {
-            color: var(--gold-accent);
-            background: rgba(230, 195, 0, 0.1);
+        .header-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            cursor: pointer;
             width: 40px;
             height: 40px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 10px;
+            transition: all 0.3s ease;
         }
         
-        .card p {
-            line-height: 1.8;
-            margin-bottom: 20px;
-            color: var(--text-secondary);
-        }
-        
-        .card ul {
-            padding-right: 20px;
-        }
-        
-        .card li {
-            margin-bottom: 12px;
-            line-height: 1.6;
-            color: var(--text-secondary);
-            position: relative;
-            padding-right: 25px;
-        }
-        
-        .card li::before {
-            content: '▸';
+        .header-btn:hover {
+            background: rgba(122, 27, 224, 0.2);
             color: var(--accent-primary);
-            position: absolute;
-            right: 0;
-            font-weight: bold;
         }
         
-        .highlight {
-            background: linear-gradient(90deg, rgba(122, 27, 224, 0.2), rgba(90, 12, 176, 0.2));
-            padding: 2px 8px;
-            border-radius: 4px;
-            color: var(--accent-primary);
-            font-weight: 600;
+        /* المحتوى الرئيسي */
+        .app-content {
+            padding: 70px 15px 80px;
+            max-width: 500px;
+            margin: 0 auto;
+            min-height: 100vh;
         }
         
-        .experience {
-            background: linear-gradient(135deg, var(--bg-card), rgba(15, 17, 25, 0.95));
-            border-right: 5px solid var(--accent-primary);
-            padding: 30px;
-            margin-top: 30px;
-            border-radius: 15px 0 0 15px;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 
-                0 10px 30px var(--shadow-color),
-                inset 0 1px 0 rgba(255, 255, 255, 0.03);
+        .page {
+            display: none;
+            animation: fadeIn 0.4s ease;
         }
         
-        .experience::before {
-            content: '';
-            position: absolute;
-            top: 0;
+        .page.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* شريط التنقل السفلي */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
             left: 0;
-            width: 100px;
-            height: 100px;
-            background: radial-gradient(circle, rgba(122, 27, 224, 0.2) 0%, transparent 70%);
+            right: 0;
+            height: 70px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(15px);
+            border-top: 1px solid var(--nav-border);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 -2px 20px rgba(0, 0, 0, 0.5);
         }
         
-        .experience h3 {
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 70px;
+            height: 70px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            color: var(--text-secondary);
+            text-decoration: none;
+        }
+        
+        .nav-item.active {
             color: var(--accent-primary);
-            margin-bottom: 15px;
-            font-size: 1.6rem;
+        }
+        
+        .nav-item.active .nav-icon {
+            transform: translateY(-5px);
+            background: var(--active-tab);
+        }
+        
+        .nav-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+        
+        .nav-item.active .nav-icon {
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 15px rgba(122, 27, 224, 0.3);
+        }
+        
+        .nav-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-item.active .nav-label {
+            color: var(--accent-primary);
             font-weight: 700;
         }
         
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 25px;
-            margin-top: 40px;
-        }
-        
-        .stat-box {
-            background: var(--stat-bg);
-            border-radius: 15px;
-            padding: 25px 20px;
-            text-align: center;
-            backdrop-filter: blur(10px);
+        /* بطاقات التطبيق */
+        .app-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(15px);
             border: 1px solid var(--border-color);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 
-                0 8px 20px var(--shadow-color),
-                inset 0 1px 0 rgba(255, 255, 255, 0.03);
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px var(--shadow-color);
         }
         
-        .stat-box:hover {
-            transform: translateY(-8px);
+        .app-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(122, 27, 224, 0.3);
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            gap: 12px;
+        }
+        
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+        
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        
+        .card-subtitle {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-top: 3px;
+        }
+        
+        /* صفحة الرئيسية */
+        .hero-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .avatar {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: white;
+            box-shadow: 0 8px 25px rgba(122, 27, 224, 0.5);
+            border: 3px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .hero-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .hero-subtitle {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        /* صفحة الخدمات */
+        .service-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background: rgba(15, 17, 25, 0.7);
+            border-radius: 12px;
+            margin-bottom: 12px;
+            border: 1px solid rgba(122, 27, 224, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .service-item:hover {
             border-color: var(--accent-primary);
-            box-shadow: 
-                0 15px 30px rgba(122, 27, 224, 0.25),
-                inset 0 1px 0 rgba(255, 255, 255, 0.03);
+            background: rgba(122, 27, 224, 0.1);
         }
         
-        .stat-box::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary), var(--gold-accent));
+        .service-icon {
+            width: 45px;
+            height: 45px;
+            background: rgba(122, 27, 224, 0.2);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 15px;
+            color: var(--accent-primary);
+            font-size: 1.2rem;
         }
         
-        .stat-box .number {
-            font-size: 3rem;
+        .service-content {
+            flex: 1;
+        }
+        
+        .service-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--text-primary);
+        }
+        
+        .service-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+        
+        /* صفحة الإحصائيات */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, rgba(15, 17, 25, 0.9), rgba(10, 12, 18, 0.9));
+            border-radius: 14px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-primary);
+        }
+        
+        .stat-number {
+            font-size: 2.2rem;
             font-weight: 800;
             background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
             -webkit-background-clip: text;
@@ -404,61 +351,69 @@
             margin-bottom: 5px;
         }
         
-        .stat-box .label {
-            font-size: 1.05rem;
-            color: var(--accent-primary);
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
             font-weight: 600;
         }
         
-        footer {
-            text-align: center;
-            margin-top: 60px;
-            padding-top: 25px;
-            border-top: 1px solid var(--border-color);
-            color: var(--text-secondary);
-            font-size: 0.95rem;
+        /* صفحة التواصل */
+        .contact-methods {
+            margin-top: 20px;
         }
         
-        .contact {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 25px;
-            margin-top: 25px;
-            margin-bottom: 40px;
-        }
-        
-        .contact a {
-            color: var(--text-primary);
-            text-decoration: none;
-            font-size: 1.1rem;
+        .contact-item {
             display: flex;
             align-items: center;
-            gap: 10px;
+            padding: 18px;
+            background: rgba(15, 17, 25, 0.7);
+            border-radius: 14px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(122, 27, 224, 0.1);
             transition: all 0.3s ease;
-            background: var(--bg-card);
-            padding: 12px 20px;
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 4px 15px var(--shadow-color);
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
         }
         
-        .contact a:hover {
-            color: var(--accent-primary);
-            background: rgba(122, 27, 224, 0.15);
+        .contact-item:hover {
             border-color: var(--accent-primary);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(122, 27, 224, 0.3);
+            background: rgba(122, 27, 224, 0.1);
+            transform: translateX(-5px);
         }
         
-        .contact a i {
-            font-size: 1.3rem;
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(122, 27, 224, 0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 15px;
             color: var(--accent-primary);
+            font-size: 1.4rem;
+        }
+        
+        .contact-info {
+            flex: 1;
+        }
+        
+        .contact-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--text-primary);
+        }
+        
+        .contact-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
         }
         
         /* تأثيرات إضافية */
         .glow-text {
-            text-shadow: 0 0 20px rgba(122, 27, 224, 0.6);
+            text-shadow: 0 0 15px rgba(122, 27, 224, 0.6);
         }
         
         .pulse {
@@ -467,241 +422,509 @@
         
         @keyframes pulse {
             0% { box-shadow: 0 0 0 0 rgba(122, 27, 224, 0.6); }
-            70% { box-shadow: 0 0 0 15px rgba(122, 27, 224, 0); }
+            70% { box-shadow: 0 0 0 10px rgba(122, 27, 224, 0); }
             100% { box-shadow: 0 0 0 0 rgba(122, 27, 224, 0); }
         }
         
-        /* تأثيرات للوضع النهاري المظلم */
-        .light-mode .card:hover {
-            box-shadow: 
-                0 20px 40px rgba(106, 27, 146, 0.25),
-                0 0 0 1px rgba(106, 27, 146, 0.15),
-                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        /* تحسينات للشاشات الصغيرة */
+        @media (max-width: 480px) {
+            .app-content {
+                padding: 70px 10px 80px;
+            }
+            
+            .hero-title {
+                font-size: 1.6rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            
+            .nav-label {
+                font-size: 0.7rem;
+            }
+            
+            .nav-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
         }
         
-        .light-mode .contact a:hover {
-            box-shadow: 0 10px 25px rgba(106, 27, 146, 0.25);
+        /* تأثيرات التمرير */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
         }
         
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2.2rem;
-            }
-            
-            .title {
-                font-size: 1.3rem;
-            }
-            
-            .content {
-                grid-template-columns: 1fr;
-                gap: 25px;
-            }
-            
-            .stats {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-            
-            .contact {
-                gap: 15px;
-            }
-            
-            .contact a {
-                padding: 10px 15px;
-                font-size: 1rem;
-            }
-            
-            .logo {
-                width: 90px;
-                height: 90px;
-                font-size: 36px;
-            }
-            
-            .mode-toggle {
-                top: 15px;
-                left: 15px;
-                padding: 10px 15px;
-            }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
-<body class="dark-mode">
-    <!-- زر تبديل الوضع -->
-    <div class="mode-toggle" id="modeToggle">
-        <div class="toggle-switch"></div>
-        <div class="mode-label" id="modeLabel">الوضع الليلي المظلم</div>
+<body>
+    <!-- شريط التنقل العلوي -->
+    <div class="app-header">
+        <div class="header-title" id="pageTitle">الرئيسية</div>
+        <div class="header-actions">
+            <button class="header-btn" id="themeToggle">
+                <i class="fas fa-moon"></i>
+            </button>
+            <button class="header-btn" id="notifications">
+                <i class="fas fa-bell"></i>
+            </button>
+        </div>
     </div>
     
-    <div class="container">
-        <header>
-            <div class="logo">
+    <!-- المحتوى الرئيسي -->
+    <div class="app-content">
+        <!-- صفحة الرئيسية -->
+        <div class="page active" id="homePage">
+            <div class="hero-section">
+                <div class="avatar pulse">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h1 class="hero-title">رياض</h1>
+                <p class="hero-subtitle">خبير التداول المالي والمحلل الاستراتيجي</p>
+            </div>
+            
+            <div class="app-card fade-in">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <div>
+                        <div class="card-title">فلسفة التداول</div>
+                        <div class="card-subtitle">الجودة وليس الكمية</div>
+                    </div>
+                </div>
+                <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 15px;">
+                    أؤمن بأن التداول الناجح يقوم على ثلاثة أركان رئيسية: إدارة المخاطر بشكل محترف، التحليل الفني والأساسي المتكامل، والانضباط النفسي وضبط المشاعر.
+                </p>
+                <div style="background: rgba(122, 27, 224, 0.1); padding: 12px; border-radius: 10px; border-right: 3px solid var(--accent-primary);">
+                    <p style="color: var(--accent-primary); font-weight: 600; margin: 0;">
+                        طريقتي في التداول تركز على الجودة وليس الكمية
+                    </p>
+                </div>
+            </div>
+            
+            <div class="app-card fade-in">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div>
+                        <div class="card-title">خبرات ومهارات</div>
+                        <div class="card-subtitle">أكثر من 10 سنوات خبرة</div>
+                    </div>
+                </div>
+                <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 15px;">
+                    <span style="background: rgba(122, 27, 224, 0.15); color: var(--accent-primary); padding: 8px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 600;">
+                        تداول الفوركس
+                    </span>
+                    <span style="background: rgba(122, 27, 224, 0.15); color: var(--accent-primary); padding: 8px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 600;">
+                        أسواق الأسهم
+                    </span>
+                    <span style="background: rgba(122, 27, 224, 0.15); color: var(--accent-primary); padding: 8px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 600;">
+                        تداول السلع
+                    </span>
+                    <span style="background: rgba(122, 27, 224, 0.15); color: var(--accent-primary); padding: 8px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 600;">
+                        التحليل الفني
+                    </span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- صفحة الخدمات -->
+        <div class="page" id="servicesPage">
+            <div class="app-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <div>
+                        <div class="card-title">الخدمات المقدمة</div>
+                        <div class="card-subtitle">خدمات متخصصة للتداول الناجح</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="service-item fade-in">
+                <div class="service-icon">
+                    <i class="fas fa-comments-dollar"></i>
+                </div>
+                <div class="service-content">
+                    <div class="service-title">استشارات تداول شخصية</div>
+                    <div class="service-desc">استشارات مخصصة بناءً على أهدافك ومستوى خبرتك في التداول</div>
+                </div>
+            </div>
+            
+            <div class="service-item fade-in">
+                <div class="service-icon">
+                    <i class="fas fa-chart-bar"></i>
+                </div>
+                <div class="service-content">
+                    <div class="service-title">تحليل الأسواق اليومي</div>
+                    <div class="service-desc">تحليل شامل للأسواق المالية مع توصيات عملية للتداول</div>
+                </div>
+            </div>
+            
+            <div class="service-item fade-in">
+                <div class="service-icon">
+                    <i class="fas fa-chess-knight"></i>
+                </div>
+                <div class="service-content">
+                    <div class="service-title">تطوير استراتيجيات تداول</div>
+                    <div class="service-desc">تصميم استراتيجيات تداول مخصصة تناسب أسلوبك وأهدافك</div>
+                </div>
+            </div>
+            
+            <div class="service-item fade-in">
+                <div class="service-icon">
+                    <i class="fas fa-user-graduate"></i>
+                </div>
+                <div class="service-content">
+                    <div class="service-title">دورات تدريبية متخصصة</div>
+                    <div class="service-desc">دورات شاملة لتعلم التداول المحترف من البداية إلى الاحتراف</div>
+                </div>
+            </div>
+            
+            <div class="service-item fade-in">
+                <div class="service-icon">
+                    <i class="fas fa-clipboard-check"></i>
+                </div>
+                <div class="service-content">
+                    <div class="service-title">مراجعة المحافظ الاستثمارية</div>
+                    <div class="service-desc">تحليل وتقييم أداء محفظتك الاستثمارية وتقديم توصيات التحسين</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- صفحة الإحصائيات -->
+        <div class="page" id="statsPage">
+            <div class="app-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <div>
+                        <div class="card-title">إحصائيات الأداء</div>
+                        <div class="card-subtitle">أرقام تدل على الخبرة والكفاءة</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-card fade-in">
+                    <div class="stat-number">10+</div>
+                    <div class="stat-label">سنوات خبرة</div>
+                </div>
+                
+                <div class="stat-card fade-in">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">متداول تم تدريبهم</div>
+                </div>
+                
+                <div class="stat-card fade-in">
+                    <div class="stat-number">85%</div>
+                    <div class="stat-label">نسبة نجاح الاستراتيجيات</div>
+                </div>
+                
+                <div class="stat-card fade-in">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">متابعة للسوق</div>
+                </div>
+            </div>
+            
+            <div class="app-card fade-in" style="margin-top: 20px;">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-history"></i>
+                    </div>
+                    <div>
+                        <div class="card-title">رحلة الخبرة</div>
+                        <div class="card-subtitle">أكثر من عقد من الخبرة</div>
+                    </div>
+                </div>
+                <p style="color: var(--text-secondary); line-height: 1.7;">
+                    بدأت رحلتي في عالم التداول منذ أكثر من عقد، مررت خلالها بجميع مراحل السوق: من الصعود والهبوط، ومن النجاحات والإخفاقات. هذه التجربة الثمينة علمتني أن التداول ليس فقط تحليل أرقام، بل هو فهم لسلوك السوق وعلم النفس البشري.
+                </p>
+            </div>
+        </div>
+        
+        <!-- صفحة التواصل -->
+        <div class="page" id="contactPage">
+            <div class="app-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-address-card"></i>
+                    </div>
+                    <div>
+                        <div class="card-title">تواصل معي</div>
+                        <div class="card-subtitle">متاح للإجابة على استفساراتك</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="contact-methods">
+                <a href="#" class="contact-item fade-in">
+                    <div class="contact-icon">
+                        <i class="fab fa-twitter"></i>
+                    </div>
+                    <div class="contact-info">
+                        <div class="contact-title">تويتر</div>
+                        <div class="contact-desc">تابع آخر التحليلات والتوصيات اليومية</div>
+                    </div>
+                </a>
+                
+                <a href="#" class="contact-item fade-in">
+                    <div class="contact-icon">
+                        <i class="fab fa-telegram"></i>
+                    </div>
+                    <div class="contact-info">
+                        <div class="contact-title">تليجرام</div>
+                        <div class="contact-desc">انضم إلى قناتنا للحصول على إشعارات فورية</div>
+                    </div>
+                </a>
+                
+                <a href="#" class="contact-item fade-in">
+                    <div class="contact-icon">
+                        <i class="fab fa-linkedin"></i>
+                    </div>
+                    <div class="contact-info">
+                        <div class="contact-title">لينكد إن</div>
+                        <div class="contact-desc">تواصل مهني وتبادل الخبرات</div>
+                    </div>
+                </a>
+                
+                <a href="#" class="contact-item fade-in">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="contact-info">
+                        <div class="contact-title">البريد الإلكتروني</div>
+                        <div class="contact-desc">للتواصل المباشر والاستشارات الخاصة</div>
+                    </div>
+                </a>
+                
+                <a href="#" class="contact-item fade-in">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <div class="contact-info">
+                        <div class="contact-title">الاتصال المباشر</div>
+                        <div class="contact-desc">للحصول على استشارة هاتفية مخصصة</div>
+                    </div>
+                </a>
+            </div>
+            
+            <div class="app-card fade-in" style="margin-top: 20px;">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div>
+                        <div class="card-title">أوقات العمل</div>
+                        <div class="card-subtitle">متاح للإجابة على استفساراتك</div>
+                    </div>
+                </div>
+                <div style="color: var(--text-secondary); line-height: 1.7;">
+                    <p style="margin-bottom: 10px;"><strong>الأحد - الخميس:</strong> 9:00 صباحاً - 6:00 مساءً</p>
+                    <p style="margin-bottom: 10px;"><strong>الجمعة:</strong> 2:00 مساءً - 6:00 مساءً</p>
+                    <p><strong>السبت:</strong> إجازة</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- شريط التنقل السفلي -->
+    <div class="bottom-nav">
+        <div class="nav-item active" data-page="homePage">
+            <div class="nav-icon">
+                <i class="fas fa-home"></i>
+            </div>
+            <div class="nav-label">الرئيسية</div>
+        </div>
+        
+        <div class="nav-item" data-page="servicesPage">
+            <div class="nav-icon">
+                <i class="fas fa-concierge-bell"></i>
+            </div>
+            <div class="nav-label">الخدمات</div>
+        </div>
+        
+        <div class="nav-item" data-page="statsPage">
+            <div class="nav-icon">
                 <i class="fas fa-chart-line"></i>
             </div>
-            <h1 class="glow-text">رياض</h1>
-            <div class="title">خبير التداول المالي والمحلل الاستراتيجي</div>
-            <p class="subtitle">
-                أكثر من 10 سنوات من الخبرة في أسواق المال العالمية، متخصص في تحليل الأسواق المالية وتطوير استراتيجيات التداول الناجحة. أساعد المتداولين على فهم السوق واتخاذ القرارات الاستثمارية المدروسة.
-            </p>
-        </header>
-        
-        <div class="content">
-            <div class="card">
-                <h2><i class="fas fa-bullseye"></i> فلسفة التداول</h2>
-                <p>أؤمن بأن التداول الناجح يقوم على ثلاثة أرئيسية:</p>
-                <ul>
-                    <li>إدارة المخاطر بشكل محترف</li>
-                    <li>التحليل الفني والأساسي المتكامل</li>
-                    <li>الانضباط النفسي وضبط المشاعر</li>
-                </ul>
-                <p>طريقتي في التداول تركز على <span class="highlight">الجودة وليس الكمية</span>، حيث أبحث عن أفضل الفرص مع أعلى نسب ربح/خطر.</p>
-            </div>
-            
-            <div class="card">
-                <h2><i class="fas fa-graduation-cap"></i> خبرات ومهارات</h2>
-                <p>خبرة متخصصة في عدة مجالات منها:</p>
-                <ul>
-                    <li>تداول العملات الأجنبية (الفوركس)</li>
-                    <li>أسواق الأسهم العالمية</li>
-                    <li>تداول السلع والعقود الآجلة</li>
-                    <li>التحليل الفني باستخدام مؤشرات متقدمة</li>
-                    <li>التحليل الأساسي للأسواق المالية</li>
-                </ul>
-                <p>أمتلك شهادات مهنية متقدمة في التحليل المالي وإدارة المحافظ الاستثمارية.</p>
-            </div>
-            
-            <div class="card">
-                <h2><i class="fas fa-lightbulb"></i> خدمات مقدمة</h2>
-                <p>أقدم مجموعة من الخدمات المتخصصة:</p>
-                <ul>
-                    <li>استشارات تداول شخصية</li>
-                    <li>تحليل الأسواق اليومي والأسبوعي</li>
-                    <li>تطوير استراتيجيات تداول مخصصة</li>
-                    <li>دورات تدريبية في التداول المحترف</li>
-                    <li>مراجعة وتقييم أداء المحافظ الاستثمارية</li>
-                </ul>
-                <p>كل خدمة تصمم خصيصاً لتتناسب مع أهدافك ومستوى خبرتك.</p>
-            </div>
+            <div class="nav-label">الإحصائيات</div>
         </div>
         
-        <div class="experience">
-            <h3>رحلة الخبرة في التداول</h3>
-            <p>بدأت رحلتي في عالم التداول منذ أكثر من عقد، مررت خلالها بجميع مراحل السوق: من الصعود والهبوط، ومن النجاحات والإخفاقات. هذه التجربة الثمينة علمتني أن <span class="highlight">التداول ليس فقط تحليل أرقام</span>، بل هو فهم لسلوك السوق وعلم النفس البشري.</p>
-            <p>خلال مسيرتي، قمت بتدريب أكثر من 500 متداول وساعدت في تطوير استراتيجيات ناجحة للعديد من المؤسسات المالية. <span class="highlight">هدفي الآن هو مشاركة هذه الخبرة</span> مع الجيل الجديد من المتداولين العرب.</p>
+        <div class="nav-item" data-page="contactPage">
+            <div class="nav-icon">
+                <i class="fas fa-address-book"></i>
+            </div>
+            <div class="nav-label">التواصل</div>
         </div>
-        
-        <div class="stats">
-            <div class="stat-box">
-                <span class="number">10+</span>
-                <span class="label">سنوات خبرة</span>
-            </div>
-            <div class="stat-box">
-                <span class="number">500+</span>
-                <span class="label">متداول تم تدريبهم</span>
-            </div>
-            <div class="stat-box">
-                <span class="number">85%</span>
-                <span class="label">نسبة نجاح الاستراتيجيات</span>
-            </div>
-            <div class="stat-box">
-                <span class="number">24/7</span>
-                <span class="label">متابعة للسوق</span>
-            </div>
-        </div>
-        
-        <div class="contact">
-            <a href="#"><i class="fab fa-twitter"></i> تويتر</a>
-            <a href="#"><i class="fab fa-linkedin"></i> لينكد إن</a>
-            <a href="#"><i class="fab fa-telegram"></i> تليجرام</a>
-            <a href="#"><i class="fas fa-envelope"></i> البريد</a>
-        </div>
-        
-        <footer>
-            <p>© 2023 رياض - خبير التداول المالي. جميع الحقوق محفوظة.</p>
-            <p>هذا الموقع لأغراض تعليمية وإعلامية فقط. التداول في الأسواق المالية يحمل مخاطر.</p>
-        </footer>
     </div>
     
     <script>
-        // كود تبديل الوضع الليلي/النهاري
-        const modeToggle = document.getElementById('modeToggle');
-        const modeLabel = document.getElementById('modeLabel');
-        const body = document.body;
+        // عناصر DOM
+        const navItems = document.querySelectorAll('.nav-item');
+        const pages = document.querySelectorAll('.page');
+        const pageTitle = document.getElementById('pageTitle');
+        const themeToggle = document.getElementById('themeToggle');
+        const notifications = document.getElementById('notifications');
         
-        // التحقق من التفضيل المحفوظ
-        const savedMode = localStorage.getItem('themeMode');
-        if (savedMode === 'light') {
-            body.classList.add('light-mode');
-            modeLabel.textContent = 'الوضع النهاري المظلم';
-        }
+        // عناوين الصفحات
+        const pageTitles = {
+            'homePage': 'الرئيسية',
+            'servicesPage': 'الخدمات',
+            'statsPage': 'الإحصائيات',
+            'contactPage': 'التواصل'
+        };
         
-        // تبديل الوضع عند النقر
-        modeToggle.addEventListener('click', function() {
-            body.classList.toggle('light-mode');
-            
-            if (body.classList.contains('light-mode')) {
-                modeLabel.textContent = 'الوضع النهاري المظلم';
-                localStorage.setItem('themeMode', 'light');
-            } else {
-                modeLabel.textContent = 'الوضع الليلي المظلم';
-                localStorage.setItem('themeMode', 'dark');
-            }
-            
-            // تأثير تفاعلي للزر
-            this.style.transform = 'scale(0.95)';
-            setTimeout(() => {
-                this.style.transform = 'scale(1)';
-            }, 150);
-        });
-        
-        // إضافة تأثيرات تفاعلية بسيطة
-        document.addEventListener('DOMContentLoaded', function() {
-            // إضافة تأثير على الكروت عند التمرير
-            const cards = document.querySelectorAll('.card');
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
+        // تبديل الصفحات
+        navItems.forEach(item => {
+            item.addEventListener('click', function() {
+                const targetPage = this.getAttribute('data-page');
+                
+                // تحديث التنشيط في شريط التنقل
+                navItems.forEach(nav => nav.classList.remove('active'));
+                this.classList.add('active');
+                
+                // تبديل الصفحات
+                pages.forEach(page => {
+                    page.classList.remove('active');
+                    if (page.id === targetPage) {
+                        page.classList.add('active');
                     }
                 });
-            }, { threshold: 0.1 });
-            
-            cards.forEach(card => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(30px)';
-                card.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-                observer.observe(card);
+                
+                // تحديث عنوان الصفحة
+                pageTitle.textContent = pageTitles[targetPage];
+                
+                // إضافة تأثيرات الظهور للعناصر الجديدة
+                setTimeout(() => {
+                    const fadeElements = document.querySelectorAll(`#${targetPage} .fade-in`);
+                    fadeElements.forEach(el => {
+                        el.classList.add('visible');
+                    });
+                }, 100);
+                
+                // التمرير إلى الأعلى
+                window.scrollTo(0, 0);
+            });
+        });
+        
+        // تبديل الوضع الليلي/النهاري
+        themeToggle.addEventListener('click', function() {
+            const icon = this.querySelector('i');
+            if (icon.classList.contains('fa-moon')) {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+                document.body.style.filter = 'invert(1) hue-rotate(180deg)';
+                localStorage.setItem('theme', 'light');
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+                document.body.style.filter = 'none';
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+        
+        // تحميل الوضع المحفوظ
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light') {
+            themeToggle.querySelector('i').classList.remove('fa-moon');
+            themeToggle.querySelector('i').classList.add('fa-sun');
+            document.body.style.filter = 'invert(1) hue-rotate(180deg)';
+        }
+        
+        // إشعارات
+        notifications.addEventListener('click', function() {
+            alert('🔔 لا توجد إشعارات جديدة حالياً');
+        });
+        
+        // تأثيرات الظهور عند التحميل
+        document.addEventListener('DOMContentLoaded', function() {
+            const fadeElements = document.querySelectorAll('.fade-in');
+            fadeElements.forEach((el, index) => {
+                setTimeout(() => {
+                    el.classList.add('visible');
+                }, index * 100);
             });
             
             // تأثير للشعار
-            const logo = document.querySelector('.logo');
-            logo.addEventListener('mouseenter', function() {
+            const avatar = document.querySelector('.avatar');
+            avatar.addEventListener('mouseenter', function() {
                 this.classList.add('pulse');
             });
             
-            logo.addEventListener('mouseleave', function() {
+            avatar.addEventListener('mouseleave', function() {
                 this.classList.remove('pulse');
             });
-            
-            // تأثيرات للعناصر عند التمرير
-            const statBoxes = document.querySelectorAll('.stat-box');
-            statBoxes.forEach((box, index) => {
-                box.style.transitionDelay = `${index * 0.1}s`;
+        });
+        
+        // تأثيرات تفاعلية للبطاقات
+        const cards = document.querySelectorAll('.app-card');
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px)';
             });
             
-            // إضافة تأثير توهج للعناوين
-            const headings = document.querySelectorAll('h1, .title');
-            headings.forEach(heading => {
-                heading.addEventListener('mouseenter', function() {
-                    this.classList.add('glow-text');
-                });
-                
-                heading.addEventListener('mouseleave', function() {
-                    this.classList.remove('glow-text');
-                });
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
             });
         });
+        
+        // تأثيرات تفاعلية لعناصر التواصل
+        const contactItems = document.querySelectorAll('.contact-item');
+        contactItems.forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateX(-5px)';
+            });
+            
+            item.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateX(0)';
+            });
+        });
+        
+        // تأثيرات تفاعلية لعناصر الخدمات
+        const serviceItems = document.querySelectorAll('.service-item');
+        serviceItems.forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateX(-5px)';
+            });
+            
+            item.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateX(0)';
+            });
+        });
+        
+        // تحسينات للشاشات الصغيرة
+        function handleResize() {
+            const isMobile = window.innerWidth <= 480;
+            const navItems = document.querySelectorAll('.nav-item');
+            
+            if (isMobile) {
+                navItems.forEach(item => {
+                    const label = item.querySelector('.nav-label');
+                    label.style.fontSize = '0.7rem';
+                });
+            } else {
+                navItems.forEach(item => {
+                    const label = item.querySelector('.nav-label');
+                    label.style.fontSize = '0.75rem';
+                });
+            }
+        }
+        
+        window.addEventListener('resize', handleResize);
+        handleResize();
     </script>
 </body>
 </html>

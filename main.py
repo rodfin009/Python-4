@@ -329,7 +329,7 @@ def save():
         with open(d['filename'], "w", encoding="utf-8") as f: f.write(d['code'])
         repo = get_safe_repo_name(d['gh_repo'])
         # استخدام صيغة x-access-token وهي الأكثر استقراراً في Git
-        remote_url = f"https://x-access-token:{d['gh_token']}@github.com/{repo}.git"
+        remote_url = f"https://{d['gh_token']}@github.com/{repo}.git"
 
         subprocess.run(["git", "remote", "remove", "origin"], check=False)
         subprocess.run(["git", "remote", "add", "origin", remote_url], check=True)
@@ -350,7 +350,7 @@ def clone():
     d = request.json
     repo_name = get_safe_repo_name(d['gh_repo'])
     token = d.get('gh_token').strip()
-    remote_url = f"https://x-access-token:{token}@github.com/{repo_name}.git"
+    remote_url = f"https://{token}@github.com/{repo_name}.git"
 
     try:
         # تنظيف جذري لضمان عدم وجود ملفات git تالفة
